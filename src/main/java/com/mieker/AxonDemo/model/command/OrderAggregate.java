@@ -42,6 +42,7 @@ public class OrderAggregate {
     public void handle(ShipOrderCommand command) {
         if (!orderConfirmed) {
             log.error("Cannot change status to shipped for an unconfirmed order.");
+            throw new IllegalCallerException("Cannot change status to shipped for an unconfirmed order.");
         }
         apply(new OrderShippedEvent(orderId));
     }
