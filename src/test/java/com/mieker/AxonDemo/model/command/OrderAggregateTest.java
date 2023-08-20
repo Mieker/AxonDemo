@@ -5,6 +5,7 @@ import com.mieker.AxonDemo.application.commands.ShipOrderCommand;
 import com.mieker.AxonDemo.application.events.OrderConfirmedEvent;
 import com.mieker.AxonDemo.application.events.OrderCreatedEvent;
 import com.mieker.AxonDemo.application.events.OrderShippedEvent;
+import com.mieker.AxonDemo.domain.model.command.OrderAggregate;
 import org.axonframework.test.aggregate.AggregateTestFixture;
 import org.axonframework.test.aggregate.FixtureConfiguration;
 import org.junit.jupiter.api.BeforeEach;

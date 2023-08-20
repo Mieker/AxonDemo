@@ -1,4 +1,4 @@
-package com.mieker.AxonDemo.model.command;
+package com.mieker.AxonDemo.domain.model.command;
 
 import com.mieker.AxonDemo.application.commands.ConfirmOrderCommand;
 import com.mieker.AxonDemo.application.commands.CreateOrderCommand;
