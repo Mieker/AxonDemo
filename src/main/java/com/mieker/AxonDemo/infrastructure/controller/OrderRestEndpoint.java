@@ -9,30 +9,37 @@ import lombok.RequiredArgsConstructor;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.messaging.responsetypes.ResponseTypes;
 import org.axonframework.queryhandling.QueryGateway;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 @RestController
+@RequestMapping("/order")
 @RequiredArgsConstructor
 public class OrderRestEndpoint {
 
     private final CommandGateway commandGateway;
     private final QueryGateway queryGateway;
 
-    @PostMapping("/ship-order")
-    public CompletableFuture<Void> shipOrder() {
+    @PostMapping("/create")
+    public CompletableFuture<Void> createOrder() {
         String orderId = UUID.randomUUID().toString();
-        return commandGateway.send(new CreateOrderCommand(orderId, "Deluxe Chair"))
-                .thenCompose(result -> commandGateway.send(new ConfirmOrderCommand(orderId)))
-                .thenCompose(result -> commandGateway.send(new ShipOrderCommand(orderId)));
+        return commandGateway.send(new CreateOrderCommand(orderId, "Soccer Ball"));
     }
 
-    @GetMapping("/all-orders")
+    @PostMapping("/confirm/{orderId}")
+    public CompletableFuture<Void> confirmOrder(@PathVariable String orderId) {
+        return commandGateway.send(new ConfirmOrderCommand(orderId));
+    }
+
+    @PostMapping("/ship/{orderId}")
+    public CompletableFuture<Void> shipOrder(@PathVariable String orderId) {
+        return commandGateway.send(new ShipOrderCommand(orderId));
+    }
+
+    @GetMapping
     public CompletableFuture<List<Order>> findAllOrders() {
         return queryGateway.query(new FindAllOrderedProductsQuery(), ResponseTypes.multipleInstancesOf(Order.class));
     }
