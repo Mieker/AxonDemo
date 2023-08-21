@@ -1,5 +1,8 @@
 package com.mieker.AxonDemo.domain.model;
 
+import lombok.Data;
+
+@Data
 public class Order {
 
     private final String orderId;

@@ -1,4 +1,6 @@
-Axon Server can be downloaded here:
-https://download.axoniq.io/axonserver/AxonServer.zip
+Before you start the application, set up AxonServer by running command:
+```
+docker compose up -d
+```
 
-java -jar axonserver.jar
+Connection to AxonServer will be established automatically.
